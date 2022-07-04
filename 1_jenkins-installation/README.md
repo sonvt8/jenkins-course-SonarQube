@@ -122,3 +122,30 @@ ngrok http 8080
 - Sau khi hoàn thành bạn có thể truy cập được Jenkins Server từ bên ngoài Internet
 
 ![Internet Access Jenkins Server](./images/ngrok_jenkins_done.png)
+
+## Task #2
+
+Trong task này, bạn sẽ được yêu cầu cấu hình và build một `Freestyle project`.
+
+Tại màn hình Dashboard của Jenkins, ấn nút `New Item` trên menu
+
+![New Item](./images/push_new_item.png)
+
+Chọn `Freestyle project` và nhập tên cho Build Job. Nhấn nút OK để chuyển sang màn hình cấu hình cho Build Job.
+
+![Fill Build Job Info](./images/name_and_select_freestyle_project.png)
+
+Tại màn hình cấu hình Build Job, đưa mành hình xuống mục `Build` -> ấn `Add build step` -> chọn `Excute shell` -> nhập lệnh `echo "Hello World"` vào phần command -> ấn nút `Save`.
+
+![Config Build Job](./images/add_command.png)
+
+Tạo Job Build thành công, màn hình chuyển hướng về màn hình của Job Build -> ấn nút `Build Now` để thực hiện chạy Job Build.
+
+![Build Trend](./images/build_now.png)
+
+Xem tiến trình và kết quả tại phần `Build History`
+
+![Build Trend](./images/build_trend.png)
+
+Ấn vào một job để xem chi tiết, tại mục `Console Output`, bạn sẽ thấy kết quả của command trong phần cấu hình
+![Build Job Created](./images/freestyle_job_done.png)
