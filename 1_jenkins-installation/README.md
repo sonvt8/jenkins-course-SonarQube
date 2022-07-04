@@ -31,10 +31,10 @@ git clone https://github.com/${your_repo}/jenkins-course.git
 
 ```sh
 # Chuyển tới thư mục cài đặt Jenkins
-$ cd jenkins-course/1_jenkins-installation/jenkins-docker
+cd jenkins-course/1_jenkins-installation/jenkins-docker
 
 # Cài đặt Jenkins Server
-$ sudo bash ./install_jenkins_server.sh
+sudo bash ./install_jenkins_server.sh
 ```
 
 - Kiểm tra xem Jenkins Server đã chạy thành công hay chưa.
