@@ -34,7 +34,7 @@ Trong task này, bạn được yêu cầu:
 
 ![Source Course Config](./images/specific_linux_slave_node.png)  
 
-- Trong phần **Source Code Management** chọn tới link github của sample project  
+- Trong phần **Source Code Management** chọn tới link github của sample project. Ví dụ: `https://github.com/HoangPhu98/nodejs-demo`
 
 ![Source Course Config](./images/config_public_git.png)  
 
