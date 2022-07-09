@@ -12,7 +12,7 @@ Trong task này, bạn được yêu cầu tạo 1 Jenkins Slave container, sau 
 
 ```/bin/bash
 # Di chuyển tới thư mục của Hands-on
-cd jenkins-course/jenkins-slave/scripts
+cd jenkins-course/2_jenkins-slave/scripts
 
 # Sinh ssh keypair và lưu tại thư mực đang làm việc
 # Nhập <path_to_repo>/2_jenkins-slave/scripts/id_rsa khi được yêu cầu 'Enter file in which to save the key'
