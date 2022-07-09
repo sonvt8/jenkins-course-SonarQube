@@ -1,39 +1,60 @@
-![Overview](https://github.com/hoabka/jenkins-course/blob/master/jenkins-slave/images/overview.png)
+# Jenkins Architecture - Task 2
 
-## Task #2 
-- Trong task này, bạn được yêu cầu build một một nodejs webapp đơn giản.     
-        
-## 1. Cài đặt NodeJS plugin và npm 
+![Overview](./images/banner_2.png)
+
+## Task #2
+
+Trong task này, bạn được yêu cầu:
+
+- Build một một nodejs webapp đơn giản
+- Cấu hình Freestyle Project để job chạy trên Jenkins Slaves
+
+## 1. Cài đặt NodeJS plugin và npm
+
 ### 1.1.  Cài đặt NodeJS plugin  
+
 - Vào mục **Manage Jenkins** => **Manage Plugins** => Chọn Tab **Available** và tìm **NodeJS** plugin.  
 - Chọn **Install without Restart** và cài đặt.  
+
+![Find NodeJS](./images/find_node_js_plugin.png)
   
-### 1.2.  Cài đặt npm  
+### 1.2.  Cấu hình NodeJS plugin
+
 - Vào mục **Manage Jenkins** => **Global Tool Configuration** => Tại phần **NodeJS** chọn **Add NodeJS** và chọn phiên bản **nodejs 12.0.0**  
 
-![Add NodeJS](https://github.com/hoabka/jenkins-course/blob/master/jenkins-slave/images/addNodeJS.JPG)
+![Add NodeJS](./images/config_nodejs_plugin.png)
 
 ## 2. Tạo Jenkins job  
+
 - Chọn **New Item** và chọn **Freestyle project** đặt tên cho project và click **OK**  
 
-![Create Freestyle Job](https://github.com/hoabka/jenkins-course/blob/master/jenkins-slave/images/createJob.JPG)  
+![Create Freestyle Job](./images/new_simple_app.png)  
+
+- Trong phần **General**, tích chọn **Restrict where this project can be run**, nhập vào label của Jenkins Slave
+
+![Source Course Config](./images/specific_linux_slave_node.png)  
 
 - Trong phần **Source Code Management** chọn tới link github của sample project  
 
-![Source Course Config](https://github.com/hoabka/jenkins-course/blob/master/jenkins-slave/images/selectSVC.JPG)  
+![Source Course Config](./images/config_public_git.png)  
 
 - Trong phần **Build Environment** chọn **Provide Node & npm bin/ folder to PATH** chọn NodeJS Installation cài đặt ở bước **#1.2**  
 
-![Build Config](https://github.com/hoabka/jenkins-course/blob/master/jenkins-slave/images/buildENV.JPG)
+![Build Config](./images/select_build_env.png)
 
 - Trong phần **Build** chọn **Add build step** => chọn **Execute Shell**.  Trong phần nội dung của Shell điền command build `npm install`  
 
-![Execute Shell](https://github.com/hoabka/jenkins-course/blob/master/jenkins-slave/images/exeShell.JPG)  
+![Execute Shell](./images/set_up_build_command.png)  
+
 ## 3. Build job  
-- Click **Build  Now** và kiểm tra kết quả của quá trình build.  
 
-![Build Job](https://github.com/hoabka/jenkins-course/blob/master/jenkins-slave/images/buildJob.JPG)
+Click **Build  Now** và kiểm tra kết quả của quá trình build.
 
-### Task #2 Completed
+- Trong trạng thái của `job`, xác nhận node thực hiện Job Build
 
-## 4. Trouble Shooting
+![Build Job Status](./images/simple_app_output.png)
+
+- Kết quả log của Job Build
+
+![Build Job Log](./images/simple_app_output_2.png)
+**Task #2 Completed**
