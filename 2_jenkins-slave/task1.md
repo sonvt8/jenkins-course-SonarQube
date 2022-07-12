@@ -103,6 +103,7 @@ ssh-keyscan -p2222 <jenkins_slave_node_ip> > /var/jenkins_home/.ssh/known_hosts
 
 ### Chạy Jenkins Master trên node vật lý & Jenkins Slave trên docker
 
+```
 Trên Node Master, switch tới user jenkins và tạo cặp khóa rsa
 $ su - jenkins
 $ ssh-keygen 
@@ -130,5 +131,6 @@ docker run -p 2222:22 -v /var/jenkins_home_slave:/var/jenkins_home -v /var/run/d
 su - jenkins
 ssh -i id_rsa jenkins@<slave_node_ip>  -p2222
 ssh-keyscan -p2222 <slave_node_ip> > /var/lib/jenkins/.ssh/known_hosts
+```
 
 Tiếp tục làm  **2. Thêm Jenkins Slave node trên Jenkins Master**
