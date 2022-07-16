@@ -1,32 +1,37 @@
-![Overview](https://github.com/hoabka/jenkins-course/blob/master/jenkins-pipeline/images/overview.png)
-## Task #1
-Trong task này, bạn được yêu tạo 1 Helloworld pipeline.  
+# Task #1
+
+Trong task này, bạn được yêu tạo 1 Simple Pipeline. Jenkinsfile sẽ được nhập trực tiếp trong giao diện của Job Build Pipeline.
     
 ## 1. Tạo Jenkins Pipeline  
 ### 1.1.  Tạo pipeline
-- Chọn **New Item** => Chọn **Pipeline** => Click **OK**
-- Mục **Pipeline** => Chọn **Pipeline script from SCM** => Chọn **Git**.
-- Phần **Repository URL** chọn tới Repository chứa Jenkinsfile.
+- Chọn **New Item** 
 
-> Repository chứa Jenkinsfile là repo được fork về từ repo **jenkins-course** trong phần **jenkins-installation**
+![Pipeline New Item](../images/new_item.png)
 
- 
-![Pipeline Config](https://github.com/hoabka/jenkins-course/blob/master/jenkins-pipeline/images/pipelineConf.JPG)
+- Nhập tên của Job Build, chọn **Pipeline** => Click **OK**
 
-- Phần **Script Path** để đường dẫn tương đối tới **Jenkinsfile** của **Task #1**
+![Pipeline Info](../images/create_simple_pipeline.png)
 
-![Jenkinsfile Path](https://github.com/hoabka/jenkins-course/blob/master/jenkins-pipeline/images/jenkinsfilePath.JPG)
+- Mục **Pipeline** => Nhập nội dung cho `Jenkinsfile`
 
-- Click **SAVE**
+![Pipeline Enter Jenkinsfile](../images/simple_pipeline_jenkins.png)
+
+- Click **SAVE** để lưu cấu hình của Job Build.
+
 ### 1.2.  Run pipeline
-- Click **Build Now**
 
-![Build Now](https://github.com/hoabka/jenkins-course/blob/master/jenkins-pipeline/images/buildNow.JPG)
+- Trong màn hình của Job Build, click **Build Now**
 
-- Check trong Log của Job build và kiểm tra xem Jenkinsfile có được thực thi đúng hay không
+![Build now](../images/simple_pipeline_build_now.png)
 
-![Build Result](https://github.com/hoabka/jenkins-course/blob/master/jenkins-pipeline/images/buildResult.JPG)
+- Kiểm tran kết quả của Job và console log của Job build, kiểm tra xem Jenkinsfile có được thực thi đúng hay không
+
+![Build result](../images/simple_pipeline_result.png)
+
+![Build output](../images/simple_pipeline_output.png)
 
 ### Task #1 Completed
 
-## 2. Trouble Shooting  
+## 2. Yêu cầu kết quả
+
+Chụp lại màn hình kết quả và console output

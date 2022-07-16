@@ -1,28 +1,73 @@
 pipeline {
-    agent any
-    environment {
-        REGISTRY_NAME               = credentials('REGISTRY_NAME')
-        DOCKER_REGISTRY_USERNAME    = credentials('DOCKER_REGISTRY_USERNAME')
-        DOCKER_REGISTRY_PASSWORD    = credentials('DOCKER_REGISTRY_PASSWORD')
+  agent { label 'linux-slave' }
+
+  options {
+    skipDefaultCheckout()
+  }
+
+  stages {
+    stage('Checkout source code') {
+      steps {
+        git branch: 'master',
+            credentialsId: 'jenkins_github_pac',
+            url: 'https://github.com/HoangPhu98/react-for-demo.git'
+        sh "ls -la"
+      }
     }
 
-    stages {
-        stage('git-checkout') {
-            steps {
-                dir('app_code') {
-                    git url: 'https://github.com/hoabka/nodejs-demo.git'
-                }
-            }
-        }
-        stage('docker-build/push-registry') {
-            steps {
-                sh '''#!/usr/bin/env bash
-                cd app_code
-                docker login -u ${DOCKER_REGISTRY_USERNAME} -p ${DOCKER_REGISTRY_PASSWORD}
-                docker build --tag "${REGISTRY_NAME}/nodejs-demo:${BUILD_NUMBER}" .
-                docker push "${REGISTRY_NAME}/nodejs-demo:${BUILD_NUMBER}"
-                '''
-            }
-        }
+    stage ('Install dependencies') {
+      tools {
+        nodejs 'nodejs 8.9.4'
+      }
+      steps {
+        sh '''
+          echo "Installing..."
+          npm install
+          echo "Install dependencies successfully."
+          ls -al
+        '''
+      }
     }
+
+    stage ('Build') {
+      steps {
+        nodejs(nodeJSInstallationName: 'nodejs 8.9.4') {
+          sh 'echo "Build application..."'
+          sh 'npm run build'
+          sh 'echo "Build application successfully."'
+          sh 'ls -al'
+        }
+        script {
+          stash includes: 'build/', name: 'build'
+        }
+      }
+    }
+    
+    stage ('Test') {
+      tools {
+        nodejs 'nodejs 8.9.4'
+      }
+      steps {
+        sh 'echo "Run unit test..."'
+        sh 'npm test'
+        sh 'echo "Run unit test successfully."'
+        sh 'ls -al'
+      }
+    }
+
+    stage ('Create docker images') {
+      agent any
+      steps {
+        script {
+          unstash 'build'
+        }
+        sh '''
+          ls -al
+          echo "Starting to build docker image"
+          docker build -t pick-color:v1 -f docker/Dockerfile.no_build .
+          docker push 
+        '''
+      }
+    }
+  }
 }
