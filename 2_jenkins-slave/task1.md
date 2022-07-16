@@ -99,4 +99,38 @@ ssh-keyscan -p2222 <jenkins_slave_node_ip> > /var/jenkins_home/.ssh/known_hosts
 
 ## 3. Trouble Shooting
 
-- Đồng bộ thời gian giữa các node
+### Đồng bộ thời gian giữa các node
+
+### Chạy Jenkins Master trên node vật lý & Jenkins Slave trên docker
+
+```
+Trên Node Master, switch tới user jenkins và tạo cặp khóa rsa
+$ su - jenkins
+$ ssh-keygen 
+# enter -> enter theo các giá trị mặc định
+
+Thoát khỏi jeknins user, trở lại user root 
+Ctrl + D
+
+# Tạo thư mục jenkins home cho slave
+$ mkdir -p /var/jenkins_home_slave/.ssh
+
+# Copy id_rsa.pub vào thư mục .ssh của jenkins_home của slave
+# (Nếu server jenkins master không chạy cùng jenkins slave thì phải copy file từ node master sang slave)
+$ cp /var/lib/jenkins/.ssh/id_rsa.pub /var/jenkins_home_slave/.ssh/authorized_keys
+
+# Thay đổi permission và owner của các file và folder
+$ chmod 700 /var/jenkins_home_slave/.ssh
+$ chmod 600 /var/jenkins_home_slave/.ssh/authorized_keys
+$ chown -R 1000:1000 /var/jenkins_home_slave
+
+# Cài đặt Jenkins trên docker
+docker run -p 2222:22 -v /var/jenkins_home_slave:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --restart always -d --name jenkins-slave hoangphu98/jenkins-slave:latest
+
+# Trên node Master, Switch tới user jenkins và thực hiện test và thêm known_hosts
+su - jenkins
+ssh -i id_rsa jenkins@<slave_node_ip>  -p2222
+ssh-keyscan -p2222 <slave_node_ip> > /var/lib/jenkins/.ssh/known_hosts
+```
+
+Tiếp tục làm  **2. Thêm Jenkins Slave node trên Jenkins Master**
