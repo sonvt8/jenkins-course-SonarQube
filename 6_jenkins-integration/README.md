@@ -1,12 +1,12 @@
-![Overview](https://github.com/hoabka/jenkins-course/blob/master/jenkins-integration/images/overview.png)  
+![Overview](./images/overview.png)  
   
 ## Task #1
 Trong task này, bạn được yêu cầu cài đặt công cụ quét code tĩnh **SonarQube** sau đó tích hợp vào **Jenkins Pipeline** để quét một project Java mẫu.
+
 ## Prequisites  
 | Yêu cầu |  Version|  
 |--|--|  
 | docker-compose ([guideline](https://docs.docker.com/compose/install/#alternative-install-options)) | 1.21.2+ | 
-
 | docker plugin ([guideline](https://plugins.jenkins.io/docker-workflow/)) |latest | 
 
 ## 1. Cài đặt SonarQube

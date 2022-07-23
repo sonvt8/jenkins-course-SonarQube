@@ -1,87 +1,130 @@
 
-![Overview](https://github.com/hoabka/jenkins-course/blob/master/jenkins-rbac/images/Jenkins-RBAC.png)
+![Overview](./images/Jenkins-RBAC.png)
 
-## Task 1
-Trong task này mục tiêu bạn sẽ tạo được users và sau đó gán quyền cho user này.
+# Jenkins Security - Task 1
 
-### Kiến thức
+Trong task này mục tiêu bạn:
+- Cài đặt và sử dụng Role-Based Authorization Strategy
+- Tạo được users và gán quyền cho user này.
+
+## Kiến thức
+
 Plugin **Role-based Authorization Strategy** cho phép quản **Role** và phân quyền cho **Users**
 
- Một số concepts:
+Một số concepts:
   
 - **Global roles** cho phép quản lý tác vụ chung, Agent, Job, Run và SCM permission ở mức Global
 - **Project roles** cho phép thiết lập permision cho các Job, Run theo một project cụ thể.
 - **Agent role** cho phép thiết lập permission liên quan tới Node, Agent
 - Gán roles cho users và groups
 
-Prequisites
-------------------------------  
+### Prequisites
+
 1. Cài đặt Jenkins
-2. Tạo Job bất kỳ và được đặt tên là **Test-01**
+2. Tạo Job bất kỳ và được đặt tên là **Simple Pipeline**
+----------------------------  
 
-Installation and Authorization  
-------------------------------  
+## Installation and Authorization  
   
-Cài đặt plugin;  
+Trong bước này, bạn sẽ cài đặt plugin Role-Based Authorization Strategy. Và cấu hình phân quyền trong Jenkins bằng Role Based Strategy.
   
- Truy cập **Manage Jenkins** > **Manage Plugins** > **Available**  và search "[Role-based Authorization Strategy](https://plugins.jenkins.io/role-strategy)", check the box và click on **Install without restart** button.
+Truy cập **Manage Jenkins** > **Manage Plugins** > **Available**  và search "Role-based Authorization Strategy", chọn plugin này và click **Install without restart** để tiến hành cài đặt.
 
-![](https://miro.medium.com/max/1400/1*mn2jn-LpPw4-qdQKyYo_KA.png)  
+![Install Plugin](./images/instal_role_plugin.png)  
+ 
+Sau khi cài đặt thành công Plugin cần bật chế độ phân quyền sử dụng Pluging này.
+Go to **Manage Jenkins** > **Configure Global Security**, kéo xuống phần  **Authorization**  chọn **Role-Based Strategy option**,  như hình dưới đây.  
   
-  
- Sau khi cài đặt thành công Plugin cần bật chế độ phân quyền sử dụng Pluging này.
- Go to **Manage Jenkins** > **Configure Global Security**, kéo xuống phần  **Authorization**  chọn **Role-Based Strategy option**,  như hình dưới đây.  
-  
-![](https://miro.medium.com/max/1400/1*S8XNvc7tjqFwwjs40Tm1JA.png)  
-  
-User Creation  
--------------  
+![Configure Author](./images/configure_global_security.png)  
 
-Go to **Manage Jenkins** > **Manage Users** > **Create Users** như hình dưới đây.  
+Click nút **Save** để lưu lại và áp dụng cấu hình Authorization mới này.
   
-![](https://miro.medium.com/max/1400/1*OrYTcUvB7-XLOD66Wbg65A.png)  
-  
-Truy cập trang Jenkins UI (**IP:8080**), cung cấp thông tin đăng nhập cho **test_user**. Màn hình dưới đây xác nhận user này không có quyền truy cập vào bất cứ resources này của Jenkins
-  
-![](https://miro.medium.com/max/1400/1*tI7_awKXgc0KBZS1ZpeLGg.png)  
-  
-Manage and Assign Roles  
------------------------  
-  
-Go to **Manage Jenkins** kéo xuống dưới cùng và click on **Manage and Assign Roles** > **Manage Roles**  
-  
+### User Creation  
 
+Bạn sẽ tạo user `dev_user` trong Jenkins và thử truy cập Jenkins bằng tài khoản mới này.
+
+Truy cập **Manage Jenkins** > **Manage Users** > **Create Users**, điền thông tin cho biểu mẫu để tạo user `dev_user`.
+  
+![](./images/create_dev_user.png)  
+  
+Truy cập trang Jenkins UI (**IP:8080**) trong ẩn danh, cung cấp thông tin đăng nhập cho `dev_user`. Màn hình dưới đây xác nhận user này không có quyền truy cập vào bất cứ resources này của Jenkins
+  
+![](./images/dev_user_login.png)  
+  
+## Manage and Assign Roles  
+
+Trong phần này, chúng ta sẽ tạo thêm role mới và gán role này cho user `dev_user`.
+  
+### Add Roles
+
+Truy cập **Manage Jenkins** -> **Manage and Assign Roles** -> **Manage Roles**  
+ 
 > Note:\
 Nếu như không nhìn thấy mục **Manage and Assign Roles**  thì cần kiểm tra xem đã cài lại Plugin hay chưa [Role-based Authorization Strategy](https://plugins.jenkins.io/role-strategy).  
   
-Trong phần **Manage Roles** sẽ có 2 phần, một là **Global roles** và phần còn lại là **Item roles** hãy bắt đầu với **Global roles**
+Trong phần **Manage Roles** sẽ có 2 phần bạn cần lưu ý, một là **Global roles** và phần còn lại là **Item roles** hãy bắt đầu với **Global roles**
   
-**Global roles**:\
-Ở **Global roles** section thêm một **role** mới đặt tên là **Employee** và gán quyền **Read** trong **Overall** Section như hình dưới đây;  
-  
-![](https://miro.medium.com/max/1400/1*TIKSg3koLyaGAZ5s_V5xoQ.png)  
-  
-**Item roles**:\
-Bên dưới mục Items roles, thêm một role mới và đặt pattern cho role mới này. Trong ví dụ, role được tạo ra có tên là Test_Devs và pattern **Test-.*** nhằm chỉ định các Job, Projects khớp với pattern này và sẽ được gán quyền cho users như mô tả hình dưới đây:
-  
-![](https://miro.medium.com/max/1400/1*Wur4V3hcSBsrFa38SQIFqg.png)  
-  
-**Assign Roles**:\
-Go to **Manage Jenkins** > **Manage and Assign Roles** > **Assign Roles** tại đây chúng ta sẽ phải làm việc với **Global roles** và **Item roles**
-  
-**Global roles**:\
-Điền tên của user (**test_user**) và **Add**. Tích chọn **Employee role**
-  
-![](https://miro.medium.com/max/1400/1*GA_RbNPouV1SQ6Z3MLmljQ.png)  
-  
-**Item roles**:\
-Ở mục này, cung câp tên user (**test_user**) và **Add**. Sau đó tích chọn **Test_DEVs** role
-  
-![](https://miro.medium.com/max/1400/1*QHF9gMpAu-xiDuvXUIZLGg.png)  
-  
-Login lại vào Jenkins để kiểm tra xem Users đã được phân quyền đúng hay chưa. Nếu thành công, error lúc ban đầu sẽ biến mất, user sẽ nhìn thấy Job **Test-01** 
-  
-![](https://miro.medium.com/max/1400/1*ZmKD1oM_NDG4Mi_CytkxWA.png)
+**Global roles**:
 
-End Lab
-------------- 
+Ở **Global roles** section thêm một **role** mới đặt tên là **developer** và gán quyền **Read** trong **Overall** Section như hình dưới đây:
+- Nhập **developer** trong **Role to add**
+- Click **Add**
+- Chọn **Read** trong **Overall**
+  
+![](./images/add_developer_in_gobal_role.png)  
+  
+**Item roles**:
+
+Bên dưới mục Items roles, thêm một role mới và đặt pattern cho role mới này. Trong ví dụ, role được tạo ra có tên là **simple_role** và pattern **Simple.\*** nhằm chỉ định các Job, Projects khớp với pattern này và sẽ được gán quyền cho users như mô tả hình dưới đây:
+  
+![](./images/add_item_role.png)  
+  
+### Assign Roles
+
+Truy cập **Manage Jenkins** > **Manage and Assign Roles** > **Assign Roles** tại đây chúng ta sẽ phải làm việc với **Global roles** và **Item roles**
+  
+**Global roles**:
+
+Điền tên của user **dev_user** -> click **Add** -> Tích chọn role  **developer**
+  
+![](./images/assign_role_global.png)  
+  
+**Item roles**:
+
+Ở mục này, cung câp tên user **dev_user** -> click **Add** -> Sau đó tích chọn role **simple_role**.
+  
+![](./images/assign_role_item.png)  
+
+### Kết quả  
+
+Login lại vào Jenkins với user **dev_user** để kiểm tra xem Users đã được phân quyền đúng hay chưa. Nếu thành công, error lúc ban đầu sẽ biến mất, user sẽ nhìn thấy Job **Simple Pipeline**
+  
+![](./images/result.png)
+
+Thực hiện build Job cho Simple Pipeline:
+
+![](./images/result2.png)
+
+## Troubleshooting
+
+### Login Failed
+
+Trong quá trình config Authorization trong Jenkins mà sau đó bạn không thể truy cập vào Jenkins, nguyên nhân có thể do cấu hình Authorization bị lỗi.
+
+**Khắc phục**: Bạn sẽ cần khắc phục bằng cách xóa bỏ cấu hình Authorization, để có thể login trở lại vào Jenkins Server.
+
+Step 1: Dừng Jenkins(dừng container chạy Jenkins Server)
+
+```/bin/bash
+docker stop <container_id_jenkins_server>
+```
+
+Step 2: Sửa file cấu hình của Jenkins server. Ví dụ, container có mount volume Jenkins home tại đường dẫn `/var/jenkins_home`, sửa file `/var/jenkins_home/config.xml`:
+
+```config
+# Thiết lập false trong useSecurity attribute
+<useSecurity>false</useSecurity>
+
+# Xóa các attribute authorizationStrategy
+<authorizationStrategy>...</authorizationStrategy>
+```
