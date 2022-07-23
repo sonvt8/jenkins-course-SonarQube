@@ -103,7 +103,7 @@ Login lại vào Jenkins với user **dev_user** để kiểm tra xem Users đã
 
 Thực hiện build Job cho Simple Pipeline:
 
-![](./images/result2.png)
+![](./images/result_2.png)
 
 ## Troubleshooting
 
