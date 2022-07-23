@@ -14,7 +14,7 @@ Plugin **Role-based Authorization Strategy** cho phép quản **Role** và phân
 Một số concepts:
   
 - **Global roles** cho phép quản lý tác vụ chung, Agent, Job, Run và SCM permission ở mức Global
-- **Project roles** cho phép thiết lập permision cho các Job, Run theo một project cụ thể.
+- **Project roles/Item roles** cho phép thiết lập permision cho các Job, Run theo một project cụ thể.
 - **Agent role** cho phép thiết lập permission liên quan tới Node, Agent
 - Gán roles cho users và groups
 
