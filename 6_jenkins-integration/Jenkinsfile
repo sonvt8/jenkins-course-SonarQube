@@ -11,6 +11,7 @@ pipeline {
                 cleanWs()
                 dir('app') {
                     git url: 'https://github.com/SonarSource/sonar-scanning-examples.git'
+                    sh 'pwd | ls -la'
                 }
             }
         }
