@@ -10,10 +10,9 @@ pipeline {
             steps {
                 cleanWs()
                 dir('app') {
-                    git branch: 'master',
-                    url: 'https://github.com/SonarSource/sonar-scanning-examples.git'
-                    sh 'ls -la'
+                    git url: 'https://github.com/SonarSource/sonar-scanning-examples.git'
                 }
+                sh 'pwd | ls -la'
             }
         }
         stage('build and scanner') {
