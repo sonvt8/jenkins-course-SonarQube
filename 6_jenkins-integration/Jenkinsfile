@@ -12,7 +12,7 @@ pipeline {
                 dir('app') {
                     git url: 'https://github.com/SonarSource/sonar-scanning-examples.git'
                 }
-                sh 'ls -la /app/'
+                sh 'ls -la /home/jenkins/workspace/Sonarqube-Jenkins/app/'
             }
         }
         stage('build and scanner') {
