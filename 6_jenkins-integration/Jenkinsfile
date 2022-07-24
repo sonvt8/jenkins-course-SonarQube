@@ -11,8 +11,9 @@ pipeline {
                 cleanWs()
                 dir('app') {
                     git url: 'https://github.com/SonarSource/sonar-scanning-examples.git'
+                    sh "pwd"
+                    sh 'ls -la'
                 }
-                sh 'ls -la /home/jenkins/workspace/Sonarqube-Jenkins/app/'
             }
         }
         stage('build and scanner') {
