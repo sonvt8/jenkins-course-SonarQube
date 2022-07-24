@@ -9,7 +9,7 @@ pipeline {
         stage('SCM') {
             steps {
                 cleanWs()
-                dir('app') {
+                dir('sonar-scanning-examples') {
                     git url: 'https://github.com/SonarSource/sonar-scanning-examples.git'
                 }
             }
@@ -17,7 +17,7 @@ pipeline {
         stage('build and scanner') {
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh 'cd app/sonarqube-scanner-gradle/gradle-basic && ./gradlew -Dsonar.host.url=${SONAR_HOST_URL} sonarqube'
+                    sh 'cd sonar-scanning-examples/sonarqube-scanner-gradle/gradle-basic && ./gradlew -Dsonar.host.url=${SONAR_HOST_URL} sonarqube'
                 }
             }
         }
